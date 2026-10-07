@@ -26,6 +26,21 @@ export const metadata: Metadata = {
   authors: [{ name: siteName, url: siteUrl }],
   creator: siteName,
   publisher: siteName,
+  icons: {
+    icon: [
+      {
+        url: "/images/Logotipacion/Logo.jpeg",
+        type: "image/jpeg",
+      },
+    ],
+    shortcut: ["/images/Logotipacion/Logo.jpeg"],
+    apple: [
+      {
+        url: "/images/Logotipacion/Logo.jpeg",
+        type: "image/jpeg",
+      },
+    ],
+  },
   keywords: [
     "inmobiliaria Bucaramanga",
     "apartamentos en venta Bucaramanga",

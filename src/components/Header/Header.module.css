@@ -87,6 +87,32 @@
   color: #b08d57;
 }
 
+.logoLink {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 2.65rem;
+  height: 2.65rem;
+  margin-left: 0.15rem;
+  border: 1px solid rgba(176, 141, 87, 0.75);
+  border-radius: 50%;
+  overflow: hidden;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.logoLink:hover,
+.logoLink:focus-visible {
+  border-color: #f5f3ee;
+  transform: scale(1.06);
+}
+
+.logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .content {
   width: min(1000px, calc(100% - 32px));
   margin: auto;
@@ -196,6 +222,11 @@
     flex-wrap: wrap;
     justify-content: center;
     font-size: 0.8rem;
+  }
+
+  .logoLink {
+    width: 2.25rem;
+    height: 2.25rem;
   }
 
   .content {

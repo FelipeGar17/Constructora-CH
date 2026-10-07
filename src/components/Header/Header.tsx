@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { FiMapPin } from "react-icons/fi";
 import styles from "./Header.module.css";
@@ -38,6 +39,15 @@ export default function Header({ showHero = true, solid = false }: HeaderProps) 
           <Link href="/propiedades">Propiedades</Link>
           <Link href="/vendidas">Vendidas</Link>
           <Link href="/contacto">Contacto</Link>
+          <Link href="/" className={styles.logoLink} aria-label="Ir al inicio">
+            <Image
+              className={styles.logo}
+              src="/images/Logotipacion/Logo.jpeg"
+              alt="Constructora Hernandez"
+              width={42}
+              height={42}
+            />
+          </Link>
         </div>
       </nav>
 
