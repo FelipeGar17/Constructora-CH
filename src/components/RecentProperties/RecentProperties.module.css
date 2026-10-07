@@ -1,0 +1,16 @@
+.section {
+  background-color: var(--color-ivory);
+}
+
+.viewport {
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: 1rem 0.5rem 1.5rem;
+  margin: -1rem -0.5rem -1.5rem;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+
+.viewport::-webkit-scrollbar {
+  display: none;
+}

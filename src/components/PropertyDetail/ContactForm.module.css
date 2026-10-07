@@ -1,0 +1,124 @@
+.contactSection {
+  margin-top: 3rem;
+}
+
+.contactTitle {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .contactTitle {
+    font-size: 1.5rem;
+  }
+}
+
+.contactSubtitle {
+  color: var(--color-secondary);
+  margin-bottom: 1.75rem;
+  line-height: 1.6;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  background: var(--color-white);
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(140, 151, 160, 0.15);
+  box-shadow: 0 10px 40px rgba(15, 42, 67, 0.08);
+}
+
+@media (max-width: 768px) {
+  .form {
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+}
+
+.formRow {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .formRow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: var(--color-primary);
+}
+
+.input,
+.textarea {
+  padding: 0.875rem 1rem;
+  border: 1.5px solid rgba(140, 151, 160, 0.25);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-family: inherit;
+  background: var(--color-white);
+  color: var(--color-primary);
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+  resize: vertical;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--color-muted);
+}
+
+.input:hover,
+.textarea:hover {
+  border-color: var(--color-secondary);
+}
+
+.input:focus,
+.textarea:focus {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+  border-color: var(--color-gold);
+}
+
+.textarea {
+  min-height: 140px;
+}
+
+.submitButton {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: 0.5rem;
+  background: var(--color-gold);
+  padding: 0.875rem 2rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  transition: all 200ms ease;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.submitButton:hover,
+.submitButton:focus-visible {
+  background: var(--color-secondary);
+  color: var(--color-white);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 30px rgba(61, 90, 115, 0.3);
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}

@@ -1,0 +1,261 @@
+.card {
+  position: relative;
+  isolation: isolate;
+  width: 260px;
+  height: 360px;
+  flex: 0 0 360px;
+  overflow: visible;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: transform 400ms ease, box-shadow 400ms ease;
+}
+
+.cardExpanded {
+  z-index: 20;
+  transform: scale(1.1);
+  box-shadow: 0 24px 45px rgba(15, 42, 67, 0.2);
+}
+
+.imageFrame {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 9px;
+  background: var(--color-primary);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 400ms ease;
+}
+
+.cardExpanded .image {
+  transform: scale(1.08);
+}
+
+.dimLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: 4px;
+  background: linear-gradient(180deg, rgba(15, 42, 67, 0.18), rgba(15, 42, 67, 0.64));
+  transition: opacity 400ms ease;
+}
+
+.cardExpanded .dimLayer {
+  opacity: 0;
+}
+
+.badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 5;
+  border: 1px solid rgba(245, 243, 238, 0.3);
+  border-radius: 999px;
+  padding: 0.35rem 0.65rem;
+  background: rgba(15, 42, 67, 0.68);
+  color: var(--color-ivory);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  backdrop-filter: blur(6px);
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 6;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(245, 243, 238, 0.35);
+  border-radius: 999px;
+  background: rgba(15, 42, 67, 0.72);
+  color: var(--color-ivory);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  backdrop-filter: blur(6px);
+  transition: opacity 250ms ease, transform 250ms ease;
+}
+
+.cardExpanded .closeButton {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.closeButton:hover {
+  transform: scale(1.1);
+}
+
+.infoPanel {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 4;
+  padding: 1rem;
+  border-radius: 0 0 9px 9px;
+  color: var(--color-ivory);
+  background: linear-gradient(180deg, rgba(15, 42, 67, 0.1), rgba(15, 42, 67, 0.96) 30%);
+  transition: padding 400ms ease, background 400ms ease;
+}
+
+.cardExpanded .infoPanel {
+  padding-top: 1.25rem;
+  background: linear-gradient(180deg, rgba(15, 42, 67, 0.82), rgba(15, 42, 67, 0.99));
+}
+
+.location {
+  color: rgba(245, 243, 238, 0.72);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin-top: 0.35rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 0.75rem;
+  color: rgba(245, 243, 238, 0.78);
+  font-size: 0.68rem;
+}
+
+.specs span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.specs svg {
+  width: 0.8rem;
+  height: 0.8rem;
+  color: var(--color-gold);
+}
+
+.reveal {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 400ms ease, opacity 300ms ease;
+}
+
+.reveal > div {
+  overflow: hidden;
+}
+
+.cardExpanded .reveal {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+/* Hover solo para puntero real (mouse/trackpad); evita el sticky-hover en táctil. */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    z-index: 20;
+    transform: scale(1.1);
+    box-shadow: 0 24px 45px rgba(15, 42, 67, 0.2);
+  }
+
+  .card:hover .image {
+    transform: scale(1.08);
+  }
+
+  .card:hover .dimLayer {
+    opacity: 0;
+  }
+
+  .card:hover .infoPanel {
+    padding-top: 1.25rem;
+    background: linear-gradient(180deg, rgba(15, 42, 67, 0.82), rgba(15, 42, 67, 0.99));
+  }
+
+  .card:hover .reveal {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+}
+
+.description {
+  margin-top: 0.8rem;
+  border-top: 1px solid rgba(245, 243, 238, 0.16);
+  padding-top: 0.75rem;
+  color: rgba(245, 243, 238, 0.82);
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+
+.highlight {
+  margin-top: 0.55rem;
+  color: var(--color-gold);
+  font-size: 0.68rem;
+}
+
+.actionButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.75rem;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--color-ivory);
+  cursor: pointer;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.actionButton svg {
+  width: 0.9rem;
+  color: var(--color-gold);
+  transition: transform 250ms ease;
+}
+
+.actionButton:hover svg {
+  transform: translateX(0.2rem);
+}
+
+.actionButton:hover {
+  color: var(--color-gold);
+}
+
+.cardExpanded .actionButton {
+  color: var(--color-gold);
+}
+
+@media (max-width: 640px) {
+  .card {
+    width: min(70vw, 260px);
+    aspect-ratio: 13 / 18;
+    flex-basis: min(70vw, 260px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .image,
+  .dimLayer,
+  .infoPanel,
+  .reveal,
+  .actionButton svg,
+  .closeButton {
+    transition: none;
+  }
+}

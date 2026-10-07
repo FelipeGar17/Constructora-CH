@@ -1,0 +1,139 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100dvh;
+  background: rgba(15, 42, 67, 0.92);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 200ms ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: rgba(245, 243, 238, 0.15);
+  border: 1px solid rgba(245, 243, 238, 0.3);
+  color: var(--color-white);
+  border-radius: 9999px;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 200ms ease;
+  z-index: 10000;
+  backdrop-filter: blur(4px);
+}
+
+.closeButton:hover,
+.closeButton:focus-visible {
+  background: rgba(245, 243, 238, 0.25);
+  transform: scale(1.05);
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(245, 243, 238, 0.15);
+  border: 1px solid rgba(245, 243, 238, 0.3);
+  color: var(--color-white);
+  border-radius: 9999px;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 200ms ease;
+  z-index: 10000;
+  backdrop-filter: blur(4px);
+}
+
+.navButton:hover,
+.navButton:focus-visible {
+  background: rgba(245, 243, 238, 0.25);
+  transform: translateY(-50%) scale(1.05);
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+.navButton[data-position="right"] {
+  right: 1.5rem;
+}
+
+.navButton:not([data-position="right"]) {
+  left: 1.5rem;
+}
+
+.imageContainer {
+  position: relative;
+  width: 90vw;
+  height: 85dvh;
+  max-width: 1200px;
+  max-height: 90dvh;
+}
+
+.image {
+  object-fit: contain;
+  border-radius: 0.75rem;
+}
+
+.counter {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 42, 67, 0.75);
+  color: var(--color-white);
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid rgba(245, 243, 238, 0.2);
+  backdrop-filter: blur(4px);
+}
+
+@media (max-width: 768px) {
+  .closeButton {
+    top: 1rem;
+    right: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .navButton {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .navButton[data-position="right"] {
+    right: 0.75rem;
+  }
+
+  .navButton:not([data-position="right"]) {
+    left: 0.75rem;
+  }
+
+  .imageContainer {
+    width: 95vw;
+    height: 80dvh;
+  }
+}

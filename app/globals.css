@@ -1,26 +1,64 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Evita que el navegador aplique automáticamente una paleta oscura al sitio. */
+  color-scheme: light;
+  --color-primary: #0f2a43;
+  --color-secondary: #3d5a73;
+  --color-muted: #8c97a0;
+  --color-ivory: #f5f3ee;
+  --color-gold: #b08d57;
+  --color-white: #ffffff;
+  --color-border: rgba(15, 42, 67, 0.1);
+  --shadow-soft: 0 18px 40px rgba(15, 42, 67, 0.12);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--color-ivory);
+  --color-foreground: var(--color-primary);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--color-ivory);
+  color: var(--color-primary);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.container {
+  width: min(1200px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+/* Fondo fijo de la sección de ofertas; evita que estilos heredados lo alteren. */
+.recent-properties-section {
+  background-color: #f5f3ee !important;
 }

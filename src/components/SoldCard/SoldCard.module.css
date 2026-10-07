@@ -1,0 +1,429 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 9px;
+  background: var(--color-white);
+  box-shadow: var(--shadow-soft);
+  transition: border-color 300ms ease, box-shadow 300ms ease, background 300ms ease;
+  scroll-margin-top: 7rem;
+}
+
+/* Los estados hover/active solo existen donde hay puntero real. En táctil, :hover y
+   :active se quedan pegados tras el toque, así que se aíslan en esta media query. */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover,
+  .card:focus-visible {
+    border-color: rgba(176, 141, 87, 0.5);
+    background: #fbf8f2;
+    box-shadow:
+      0 28px 65px rgba(15, 42, 67, 0.14),
+      0 0 0 1px rgba(176, 141, 87, 0.28);
+  }
+
+  .card:hover .media::after,
+  .card:focus-visible .media::after,
+  .card:active .media::after {
+    opacity: 0;
+  }
+
+  .card:active {
+    border-color: rgba(176, 141, 87, 0.5);
+    box-shadow: 0 22px 55px rgba(15, 42, 67, 0.14);
+  }
+
+  .navButton:hover {
+    color: var(--color-gold);
+  }
+}
+
+/* Sin hover no hay forma de quitar el overlay: se elimina de entrada para que la
+   foto no se vea oscura en móvil. El carrusel conserva su propio fondo y sigue legible. */
+@media (hover: none) {
+  .media::after {
+    opacity: 0;
+  }
+
+  .navButton {
+    color: var(--color-ivory);
+  }
+}
+
+.top {
+  display: grid;
+  grid-template-columns: minmax(0, 480px) minmax(0, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.75rem);
+  min-width: 0;
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 4 / 3 ;
+  overflow: hidden;
+  background: var(--color-primary);
+}
+
+.media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(15, 42, 67, 0.18), rgba(15, 42, 67, 0.55));
+  transition: opacity 350ms ease;
+  pointer-events: none;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.carouselNav {
+  position: absolute;
+  left: 50%;
+  bottom: 1rem;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: 1px solid rgba(245, 243, 238, 0.35);
+  border-radius: 999px;
+  padding: 0.35rem 0.55rem;
+  background: rgba(15, 42, 67, 0.74);
+  backdrop-filter: blur(8px);
+  color: var(--color-ivory);
+}
+
+.navButton {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--color-ivory);
+  cursor: pointer;
+  transition: color 200ms ease;
+}
+
+.navButton svg {
+  width: 16px;
+  height: 16px;
+}
+
+.counter {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 0.4rem 0 0;
+}
+
+.infoTop {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(176, 141, 87, 0.5);
+  border-radius: 999px;
+  padding: 0.3rem 0.75rem;
+  color: var(--color-gold);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.location {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--color-muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.location svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.title {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.price {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin: 0;
+}
+
+.priceLabel {
+  color: var(--color-muted);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.priceValue {
+  color: var(--color-primary);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.highlight {
+  margin: 0;
+  color: var(--color-gold);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.description {
+  margin: 0;
+  color: var(--color-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.specs li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-secondary);
+  font-size: 0.8rem;
+}
+
+.specs svg {
+  width: 1rem;
+  height: 1rem;
+  color: var(--color-gold);
+  stroke-width: 1.5;
+}
+
+.note {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0;
+  border-top: 1px solid var(--color-border);
+  padding-top: 0.9rem;
+  color: var(--color-muted);
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+.note svg {
+  flex-shrink: 0;
+  width: 0.9rem;
+  height: 0.9rem;
+  color: var(--color-gold);
+}
+
+.testimonial {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  border-top: 1px solid var(--color-border);
+  padding: 1.5rem 2rem 1.75rem;
+  background: #faf8f3;
+}
+
+.testimonialHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 1.1rem;
+}
+
+.testimonialBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--color-muted);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.testimonialBadge svg {
+  width: 0.85rem;
+  height: 0.85rem;
+  color: var(--color-gold);
+}
+
+.testimonialRating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.star {
+  width: 0.95rem;
+  height: 0.95rem;
+  color: rgba(176, 141, 87, 0.25);
+}
+
+.starFilled {
+  color: var(--color-gold);
+}
+
+.ratingValue {
+  margin-left: 0.35rem;
+  color: var(--color-primary);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.testimonialMain {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.testimonialIcon {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(176, 141, 87, 0.4);
+  border-radius: 999px;
+  color: var(--color-gold);
+  background: var(--color-ivory);
+}
+
+.testimonialIcon svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.5;
+}
+
+.testimonialBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.testimonialText {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.testimonialOwner {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+  color: var(--color-gold);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ownerDivider {
+  flex-shrink: 0;
+  width: 28px;
+  height: 1px;
+  background: rgba(176, 141, 87, 0.5);
+}
+
+@media (max-width: 900px) {
+  .top {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    gap: 1.25rem;
+  }
+
+  .media {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .info {
+    padding: 0 1.25rem 1.25rem;
+  }
+
+  .testimonial {
+    border: 0;
+    border-top: 1px solid var(--color-border);
+    border-radius: 0;
+    padding: 1.5rem 1.25rem 1.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .priceValue {
+    font-size: 1.05rem;
+  }
+
+  .carouselNav {
+    bottom: 0.75rem;
+  }
+
+  .testimonial {
+    gap: 1rem;
+  }
+
+  .testimonialIcon {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .media::after,
+  .navButton {
+    transition: none;
+  }
+}

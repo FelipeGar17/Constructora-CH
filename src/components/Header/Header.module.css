@@ -1,0 +1,210 @@
+.header {
+  position: relative;
+  min-height: 1vh;
+  padding-top: 4.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-image: url("/images/hero/hero-portada.jpg");
+  background-size: cover;
+  background-position: center;
+  color: #f5f3ee;
+}
+
+.navOnly {
+  min-height: 0;
+  padding-top: 0;
+  background: var(--color-primary);
+}
+
+.navOnly .nav {
+  position: relative;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 42, 67, 0.58);
+}
+
+.nav,
+.content {
+  position: relative;
+  z-index: 1;
+}
+
+.nav {
+  position: fixed;
+  inset: 0 0 auto;
+  width: 100%;
+  padding: 1.5rem max(16px, calc((100% - 1200px) / 2)) 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  z-index: 20;
+  background: transparent;
+  transition: background 300ms ease, box-shadow 300ms ease, backdrop-filter 300ms ease;
+}
+
+.navScrolled {
+  background: rgba(15, 42, 67, 0.92);
+  box-shadow: 0 10px 24px rgba(15, 42, 67, 0.18);
+  backdrop-filter: blur(12px);
+}
+
+.location {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #b08d57;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.location svg {
+  width: 1rem;
+  height: 1rem;
+  stroke-width: 1.5;
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0;
+  font-size: 0.9rem;
+  color: rgba(245, 243, 238, 0.96);
+}
+
+.navLinks a {
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.navLinks a:hover,
+.navLinks a:focus-visible {
+  color: #b08d57;
+}
+
+.content {
+  width: min(1000px, calc(100% - 32px));
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.8rem 0 3rem;
+}
+
+.content h1 {
+  max-width: 720px;
+  margin: 0;
+  font-size: clamp(2rem, 3vw, 3.2rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  color: #f5f3ee;
+}
+
+.subtitle {
+  max-width: 620px;
+  margin: 0.7rem auto 0;
+  font-size: clamp(0.85rem, 1vw, 1.1rem);
+  line-height: 1.7;
+  color: rgba(245, 243, 238, 0.82);
+}
+
+.button {
+  margin: 0;
+  height: auto;
+  background: transparent;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  --border-right: 4px;
+  --text-stroke-color: rgba(255, 255, 255, 0.7);
+  --animation-color: #b08d57;
+  --fs-size: 1.1rem;
+  position: relative;
+  display: inline-block;
+  margin-top: 0.8rem;
+  letter-spacing: 0.18em;
+  text-decoration: none;
+  font-size: var(--fs-size);
+  font-family: Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--text-stroke-color);
+}
+
+.actualText,
+.hoverText {
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.hoverText {
+  position: absolute;
+  box-sizing: border-box;
+  content: attr(data-text);
+  color: var(--animation-color);
+  width: 0%;
+  inset: 0;
+  border-right: var(--border-right) solid var(--animation-color);
+  overflow: hidden;
+  transition: 0.5s ease;
+  -webkit-text-stroke: 1px var(--animation-color);
+  white-space: nowrap;
+}
+
+.button:hover .hoverText,
+.button:focus-visible .hoverText {
+  width: 100%;
+  filter: drop-shadow(0 0 18px rgba(176, 141, 87, 0.7));
+}
+
+@media (max-width: 700px) {
+  .header {
+    min-height: 68vh;
+    padding-top: 6.5rem;
+  }
+
+  .header.navOnly {
+    min-height: 0;
+    padding-top: 0;
+  }
+
+  .navOnly .nav {
+    padding: 0.75rem 16px;
+  }
+
+  .nav {
+    padding: 1rem 16px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.9rem;
+  }
+
+  .location {
+    font-size: 0.65rem;
+  }
+
+  .navLinks {
+    gap: 0.9rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 0.8rem;
+  }
+
+  .content {
+    padding-top: 1.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .button {
+    --fs-size: 1rem;
+    letter-spacing: 0.12em;
+  }
+}
