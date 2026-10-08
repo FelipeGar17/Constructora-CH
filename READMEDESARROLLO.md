@@ -1,5 +1,10 @@
 # README DE DESARROLLO — Portafolio Finca Raíz V2
 
+> **Estado actualizado: 2026-10-06.** El sitio está desplegado en Cloudflare Workers
+> mediante OpenNext. El Worker activo es `constructora-ch` y su URL temporal es
+> `https://constructora-ch.fevora.workers.dev`. Esta URL puede indexarse en buscadores,
+> aunque antes de SEO definitivo se debe reemplazar `siteUrl` por la URL pública elegida.
+
 > **Esta es la guía operativa del proyecto**: dónde vive cada cosa, qué texto se edita en
 > qué archivo y qué falta hacer. Acá está **la única lista de pendientes** del repositorio.
 >
@@ -34,7 +39,7 @@ npm run lint       # eslint
 
 ```
 app/                                  → páginas (rutas) + globales
-  layout.tsx          → <html>/<body>, fuentes, SEO base (título por plantilla)
+  layout.tsx          → <html>/<body>, fuentes, SEO base, favicon e iconos del sitio
   globals.css         → colores, tipografía, contenedor (variables)
   page.tsx            → HOME
   not-found.tsx       → 404 (con Header y Footer)
@@ -97,8 +102,10 @@ los actualiza en TODO el sitio automáticamente:
 | Nombre, dominio y descripción del sitio | `src/lib/site.ts` |
 | Rutas que se mandan a Google | `app/sitemap.ts` |
 | Hero de la home (frase grande, subtítulo, botón) | `src/components/Header/Header.tsx` — se apaga con `<Header showHero={false} />` |
-| Foto de fondo del hero | el archivo en `public/images/hero/`; su URL está en `src/components/Header/Header.module.css` |
-| Menú de navegación (Inicio, Propiedades, Vendidas, Contacto) | `src/components/Header/Header.tsx` — `solid` lo pone opaco cuando no hay foto detrás |
+| Foto de fondo del hero | la URL está en `src/components/Header/Header.module.css`; actualmente usa `public/images/Logotipacion/Logo.jpeg` con `contain` para mostrar el logo completo |
+| Menú de navegación (Inicio, Propiedades, Vendidas, Contacto y logo) | `src/components/Header/Header.tsx` — `solid` lo pone opaco cuando no hay foto detrás |
+| Logo circular del menú | `public/images/Logotipacion/Logo.jpeg`, usado por `Header.tsx` y estilizado en `Header.module.css` |
+| Favicon e icono de dispositivos | `app/icon.jpeg` y `metadata.icons` en `app/layout.tsx` |
 | Beneficios bajo el hero (Arquitectura moderna, etc.) | `app/page.tsx` |
 | Texto "Habitar mejor" del home | `app/page.tsx` |
 | Título y cifras de la sección azul (clientes, proyectos…) | `app/page.tsx` |
@@ -462,21 +469,26 @@ obliga al interesado a dar dos pasos.
 
 ### 4. Despliegue en Cloudflare
 
-**El deploy va a Cloudflare, pero la ruta todavía no está decidida (2026-10-04).** Las tres
-opciones son compatibles con el proyecto; lo que falta es que el cliente elija.
+**Ruta elegida: Workers + OpenNext (2026-10-06).** El proyecto se compila con `next build`,
+OpenNext genera `.open-next/worker.js` y Wrangler publica el Worker.
 
 | Opción | Qué implica |
 | --- | --- |
 | **Export estático** | `output: "export"` en `next.config.ts` + `assets.directory` en `wrangler.jsonc`. Cero cómputo. Es lo más simple: el proyecto es 100 % estático (13 rutas, data local, sin server actions ni middleware) y la ruta de detalle future funciona con `generateStaticParams`. **Es la recomendación.** Contra: `output: "export"` es una restricción permanente si algún día quieren SSR o ISR |
 | **Workers + vinext** | Es lo que **recomienda Cloudflare** para apps nuevas de Next.js (su guía de Next en Workers, ago-2026). No destructivo: `vinext init` sobre la app existente y `next dev` sigue funcionando |
-| **Workers + OpenNext** | Adaptador maduro, soporta Next 16.3. Son más piezas (`wrangler` + `.open-next/` + `nodejs_compat`) y es el camino que Cloudflare quiere que se abandone a favor de vinext |
+| **Workers + OpenNext** | Ruta activa. Cloudflare ejecuta la migración automática y publica `.open-next/worker.js`. |
 
-- [ ] **Decidir la ruta de deploy** entre las tres de arriba. De eso depende qué se escribe en
-      `next.config.ts` y si se crea `wrangler.jsonc`.
+- [x] **Decidir la ruta de deploy.** Resuelto: Workers + OpenNext. Cloudflare genera
+      `wrangler.jsonc`, `open-next.config.ts` y `.dev.vars` durante la migración; los artefactos
+      locales permanecen ignorados y no se deben subir con secretos.
 - [ ] **Reemplazar el dominio placeholder** de `src/lib/site.ts`
       (`https://dominio-pendiente.example.com`) por el real. **Es bloqueante**: afecta canonical,
-      Open Graph, `robots.txt` y `sitemap.xml`, y desplegar sin cambiarlo le dice a Google que
-      indexe el dominio equivocado. **El cliente todavía no tiene dominio.**
+      Open Graph, `robots.txt` y `sitemap.xml`. Mientras no haya dominio propio, se puede usar
+      temporalmente `https://constructora-ch.fevora.workers.dev`, pero debe cambiarse antes del
+      SEO definitivo.
+- [x] **Publicar el Worker.** Verificado el 2026-10-06: `constructora-ch` desplegado en
+      `https://constructora-ch.fevora.workers.dev`, con `ASSETS`, `IMAGES` y
+      `WORKER_SELF_REFERENCE` funcionando.
 - [ ] **Confirmar los nameservers del dominio.** Los Workers con dominio propio exigen que la
       zona esté en Cloudflare. Si el DNS queda en otro proveedor, esa vía no sirve y habría que
       publicar en Cloudflare Pages.
@@ -492,6 +504,19 @@ opciones son compatibles con el proyecto; lo que falta es que el cliente elija.
 - [ ] **Agregar cabeceras de seguridad** (`_headers` en `public/`, que Cloudflare lee de forma
       nativa) **solo al final**: hoy una CSP tendría que permitir `picsum.photos` y Google Fonts
       por la plantilla de `/propiedades`, y quedaría whitelistando terceros que se van a quitar.
+
+### 4.a SEO con subdominio gratuito
+
+El subdominio `workers.dev` puede compartirse e indexarse sin comprar un dominio. Para hacerlo:
+
+1. Confirmar que funcionen `/robots.txt` y `/sitemap.xml`.
+2. Registrar la URL como propiedad de prefijo en Google Search Console.
+3. Enviar `https://constructora-ch.fevora.workers.dev/sitemap.xml`.
+4. Solicitar la indexación de `/`, `/propiedades` y `/contacto`.
+5. Comprobar resultados con `site:constructora-ch.fevora.workers.dev`.
+
+La indexación no es inmediata ni está garantizada. Para SEO comercial definitivo se recomienda
+un dominio propio y actualizar `src/lib/site.ts`.
 
 ### 5. Legal (revisar con asesoría jurídica antes de publicar)
 

@@ -3,6 +3,8 @@ export type Property = {
   title: string;
   location: string;
   mapUrl?: string;
+  lat?: number;
+  lng?: number;
   price?: string;
   priceValue?: number;
   bedrooms?: number;
