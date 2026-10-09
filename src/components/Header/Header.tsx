@@ -36,7 +36,7 @@ export default function Header({ showHero = true, solid = false }: HeaderProps) 
         </div>
         <div className={styles.navLinks}>
           <Link href="/">Inicio</Link>
-          <Link href="/propiedades">Propiedades</Link>
+          <Link href="/propiedades">En Venta</Link>
           <Link href="/vendidas">Vendidas</Link>
           <Link href="/contacto">Contacto</Link>
           <Link href="/" className={styles.logoLink} aria-label="Ir al inicio">
@@ -63,7 +63,7 @@ export default function Header({ showHero = true, solid = false }: HeaderProps) 
           href="/propiedades"
           className={styles.button}
 
-          
+
           data-text="Ver propiedades"
           aria-label="Ver propiedades"
         >
